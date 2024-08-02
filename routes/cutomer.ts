@@ -6,15 +6,16 @@ import { Customer } from "../db/entity/Customer";
 const router = Router();
 router.post('/',async(req: Request, res: Response, next: NextFunction) => {
     const payload:Customer = req.body
-    if(!payload.id||!payload.name){
-        res.send({
+    if(!payload.name||!payload.mobilePhone||!payload.balance){
+        res.status(400).json({
             message:"missing field",
             success:false
         })
+        return;
     }
     try {
         const customer =await createCustomer(payload);
-        res.json({
+        res.status(200).json({
             message:"Customer created successfully",
             success:true,
             customer: customer
@@ -27,7 +28,7 @@ router.post('/',async(req: Request, res: Response, next: NextFunction) => {
     }
 })
 router.delete('/:id',async(req: Request, res: Response, next:NextFunction)=> {
-    const id = req.body.id
+    const id = Number(req.params.id)
     try {
         const customer =await removeCustomer(id)
         res.json({
@@ -44,9 +45,9 @@ router.delete('/:id',async(req: Request, res: Response, next:NextFunction)=> {
 })
 
 router.put('/:id', async(req: Request, res: Response, next:NextFunction) => {
-    const id = req.body.id
+    const id = Number(req.params.id)
     const payload:Customer = req.body
-    if(!payload.id||!payload.name){
+    if(!payload.id||!payload.name||!payload.mobilePhone||!payload.balance){
         res.send({
             message:"missing field",
             success:false
@@ -67,7 +68,7 @@ router.put('/:id', async(req: Request, res: Response, next:NextFunction) => {
 })
 router.get('',logRequest,getAllCustomer)
 router.get('/:id',async(req: Request, res: Response, next:NextFunction)=>{
-    const id = req.body.id
+    const id = Number(req.params.id)
     try {
         const customer = await getCustomer(id)
         res.json({

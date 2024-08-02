@@ -10,8 +10,7 @@ const AppDataSource = new DataSource({
     synchronize :true,
     logging :false,
     entities:[Customer],
-    subscribers:[],
-    migrations:[]
+   
 
 })
 export default AppDataSource;

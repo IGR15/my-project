@@ -7,4 +7,6 @@ export class Customer extends BaseEntity{
     name: string;
     @Column({length:255,nullable:false,unique:true})
     mobilePhone: string;
+    @Column({nullable:true})
+    balance: number;
 }

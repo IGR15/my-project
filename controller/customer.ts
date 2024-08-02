@@ -32,6 +32,9 @@ const editCustomer=async(id:number,payload:Customer)=>{
     if(payload.mobilePhone){
         customer.mobilePhone = payload.mobilePhone
     }
+    if (payload.balance !== undefined) {
+        customer.balance = payload.balance;
+    }
     return customer.save();
    
 
