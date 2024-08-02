@@ -44,8 +44,8 @@ router.delete('/:id',async(req: Request, res: Response, next:NextFunction)=> {
 
 })
 
-router.put('/:id', async(req: Request, res: Response, next:NextFunction) => {
-    const id = Number(req.params.id)
+router.put('/', async(req: Request, res: Response, next:NextFunction) => {
+    const id = req.body.id
     const payload:Customer = req.body
     if(!payload.id||!payload.name||!payload.mobilePhone||!payload.balance){
         res.send({
@@ -64,7 +64,7 @@ router.put('/:id', async(req: Request, res: Response, next:NextFunction) => {
         console.log("error"+error);
         next(error);
         
-    }
+    } 
 })
 router.get('',logRequest,getAllCustomer)
 router.get('/:id',async(req: Request, res: Response, next:NextFunction)=>{
